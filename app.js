@@ -6,18 +6,20 @@ let io = require('socket.io')(server);
 
 let HOST = '127.0.0.1';
 let PORT = 1002;
-server.listen(1002);
+server.listen(1002, ()=>{
+    console.log("Server Listen: 1002")
+});
 
 app.get('/', (req, res) => res.send('Hello World!'))
 var mysql      = require('mysql');
 var connection = mysql.createConnection({
   host     : 'localhost',
-  user     : 'verbateam',
-  password : 'verba1234',
+  user     : 'root',
+  password : '',
   database : 'alertadosbd'
 });
 
-connection.connect();
+connection.connect()
 
 connection.query('SELECT * from incidentes', function(err, rows, fields) {
   if (err) throw err;
