@@ -9,6 +9,22 @@ let PORT = 1002;
 server.listen(1002);
 
 app.get('/', (req, res) => res.send('Hello World!'))
+var mysql      = require('mysql');
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'verbateam',
+  password : 'verba1234',
+  database : 'alertadosbd'
+});
+
+connection.connect();
+
+connection.query('SELECT * from incidentes', function(err, rows, fields) {
+  if (err) throw err;
+  console.log('The solution is: ', rows[0]);
+});
+
+connection.end();
 
 io.on('connection', function (socket) {
     socket.on('get', function (data) {
@@ -22,5 +38,5 @@ io.on('connection', function (socket) {
 });
 
 io.on('error', function (err) {
-    console.error(err)
+    console.error("error: ",err)
 });
