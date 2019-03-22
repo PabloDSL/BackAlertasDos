@@ -10,4 +10,6 @@ module.exports = function(app) {
    app.route('/incidentes/:incidenteId')
     .get(controlador.read_a_incidente)
     .delete(controlador.delete_a_incidente);
+
+    app.route('/register').post(controlador.create_a_user);
     };
