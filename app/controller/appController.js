@@ -50,3 +50,19 @@ exports.delete_a_incidente = function(req, res) {
     res.json({ message: 'incidente successfully deleted' });
   });
 };
+
+var Usuario = require('../model/userModel.js');
+
+exports.create_a_user = function(req, res) {
+  var new_user = new Usuario(req.body);
+
+  //handles null error 
+  
+  Usuario.createUsuario(new_user, function(err, incidente) {
+    
+    if (err)
+      res.send(err);
+    res.json(incidente);
+  });
+
+};

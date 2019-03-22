@@ -65,4 +65,5 @@ Incidente.remove = function(id, result){
             }); 
 };
 
+
 module.exports= Incidente;
