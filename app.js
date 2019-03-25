@@ -1,18 +1,23 @@
-const express = require('express'),
-  app = express(),
-  bodyParser = require('body-parser');
-  port = process.env.PORT || 3000;
+const express = require('express');
+var app = express();
+var bodyParser = require('body-parser');
+var port = process.env.PORT || 3000;
 
+//websocket
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 
 const mysql = require('mysql');
 // connection configurations
 var connection = mysql.createConnection({
     host     : 'localhost',
-    user     : 'verbateam',
-    password : 'verba1234',
+    user     : 'root',
+    password : '',
     database : 'alertadosbd'
   });
- 
+
+
+var posiciones=[];
 // connect to database
 connection.connect();
 
@@ -25,45 +30,15 @@ app.use(bodyParser.json());
 
 var routes = require('./app/routes/appRoutes'); //importing route
 routes(app); //register the route
-/*let express = require('express');
-let app = express();
-let server = require('http').Server(app);
-let io = require('socket.io')(server);
 
+io.on('connection', function(socket) {
+	console.log('Un cliente se ha conectado en '+ socket );
+  socket.emit('posiciones', messages);
+  
+  socket.on('new-message', function(data) {
+    posiciones.push(data);
 
-let HOST = '127.0.0.1';
-let PORT = 1002;
-server.listen(1002);
-
-app.get('/', (req, res) => res.send('Hello World!'))
-var mysql      = require('mysql');
-var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'verbateam',
-  password : 'verba1234',
-  database : 'alertadosbd'
+    io.sockets.emit('posiciones', messages);
+  });
 });
 
-connection.connect();
-
-connection.query('SELECT * from incidentes', function(err, rows, fields) {
-  if (err) throw err;
-  console.log('The solution is: ', rows[0]);
-});
-
-connection.end();
-
-io.on('connection', function (socket) {
-    socket.on('get', function (data) {
-        console.log(data);
-        socket.emit('message', { message: data.message });
-    })
-    socket.on('disconnect', function () {
-        console.log("Servidor desconectado")
-    })
-
-});
-
-io.on('error', function (err) {
-    console.error("error: ",err)
-});*/
