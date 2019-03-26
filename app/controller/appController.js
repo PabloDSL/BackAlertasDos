@@ -40,8 +40,6 @@ exports.read_a_incidente = function(req, res) {
 
 
 
-
-
 exports.delete_a_incidente = function(req, res) {
 
   incidente.remove( req.params.incidenteId, function(err, incidente) {

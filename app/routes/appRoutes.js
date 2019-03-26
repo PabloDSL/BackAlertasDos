@@ -7,9 +7,11 @@ module.exports = function(app) {
     .get(controlador.list_all_incidents)
     .post(controlador.create_a_incident);
    
-   app.route('/incidentes/:incidenteId')
+  app.route('/incidentes/:incidenteId')
     .get(controlador.read_a_incidente)
     .delete(controlador.delete_a_incidente);
 
-    app.route('/register').post(controlador.create_a_user);
-    };
+  app.route('/register').post(controlador.create_a_user);
+    
+
+};
