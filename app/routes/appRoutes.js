@@ -12,6 +12,10 @@ module.exports = function(app) {
     .delete(controlador.delete_a_incidente);
 
   app.route('/register').post(controlador.create_a_user);
+  app.route('/usuarios').get(controlador.list_all_users);
+  app.route('/usuarios/:id')
+    .get(controlador.read_a_user)
+    .put(controlador.update_a_user);
     
 
 };

@@ -31,7 +31,7 @@ exports.create_a_incident = function(req, res) {
 
 
 exports.read_a_incidente = function(req, res) {
-  incidente.getIncidentById(req.params.incidenteId, function(err, incidente) {
+  incidente.getIncidentById(req.params.id, function(err, incidente) {
     if (err)
       res.send(err);
     res.json(incidente);
@@ -56,11 +56,39 @@ exports.create_a_user = function(req, res) {
 
   //handles null error 
   
-  Usuario.createUsuario(new_user, function(err, incidente) {
+  Usuario.createUsuario(new_user, function(err, usuario) {
     
     if (err)
       res.send(err);
-    res.json(incidente);
+    res.json(usuario);
   });
 
 };
+
+exports.read_a_user = function(req, res) {
+  Usuario.getUserById(req.params.id, function(err, usuario) {
+    if (err)
+      res.send(err);
+    res.json(usuario);
+  });
+};
+
+exports.update_a_user = function(req, res) {
+  Usuario.updateById(req.params.id, new Usuario(req.body), function(err, usuario) {
+    if (err)
+      res.send(err);
+    res.json(usuario);
+  });
+};
+
+exports.list_all_users = function(req, res) {
+  Usuario.getAllUsers(function(err, usuario) {
+    if (err)
+      res.send(err);
+      console.log('res', usuario);
+    res.send(usuario);
+  });
+};
+
+
+
