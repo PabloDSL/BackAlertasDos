@@ -36,6 +36,7 @@ sql.query("select * from incidentes", function (err, res) {
   else{
     incidentes = res;
     //console.log('users : ', incidentes);
+    //console.log("Prueba ignore");
   }
 });
 io.on('connection', function(socket) {
