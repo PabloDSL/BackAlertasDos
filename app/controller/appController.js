@@ -33,7 +33,7 @@ exports.create_a_incident = function(req, res) {
 
 
 exports.read_a_incidente = function(req, res) {
-  Incidente.getIncidentById(req.params.incidenteId, function(err, incidente) {
+  incidente.getIncidentById(req.params.incidenteId, function(err, incidente) {
     if (err)
       res.send(err);
     res.json(incidente.rows);
@@ -85,6 +85,15 @@ exports.update_a_user = function(req, res) {
 
 exports.list_all_users = function(req, res) {
   Usuario.getAllUsers(function(err, usuario) {
+    if (err)
+      res.send(err);
+      console.log('res', usuario);
+    res.send(usuario);
+  });
+};
+
+exports.iniciar_sesion = function(req, res) {
+  Usuario.iniciarSesion(req.body,function(err, usuario) {
     if (err)
       res.send(err);
       console.log('res', usuario);

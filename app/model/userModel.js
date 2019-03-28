@@ -60,4 +60,16 @@ Usuario.getUserById = function createUser(userId, result) {
             }
         });   
 };
+Usuario.iniciarSesion = function iniciarSesion(usuario, result){
+    sql.query("Select * from usuarios where correo = $1 and  contrasena = $2", [usuario.correo,usuario.contrasena], function (err, res) {             
+        if(err) {
+            console.log("error: ", err);
+            result(err, null);
+        }
+        else{
+            result(null, res.rows);
+      
+        }
+    });   
+}
 module.exports= Usuario;
