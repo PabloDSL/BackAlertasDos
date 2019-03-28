@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 var port = process.env.PORT || 5000;
 
 //websocket
-var server = app.listen(3000);
+var server = app.listen(port);
 var io = require('socket.io').listen(server);
 
 var posiciones;
