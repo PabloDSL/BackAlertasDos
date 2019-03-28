@@ -9,7 +9,7 @@ exports.list_all_incidents = function(req, res) {
     if (err)
       res.send(err);
       console.log('res', incidente);
-    res.send(incidente);
+    res.send(incidente.rows);
   });
 };
 
@@ -19,12 +19,14 @@ exports.create_a_incident = function(req, res) {
   var new_incident = new Incidente(req.body);
 
   //handles null error 
+  console.log(new_incident)
   
   Incidente.createIncidente(new_incident, function(err, incidente) {
     
     if (err)
       res.send(err);
     res.json(incidente);
+    res.send(`User added with ID:`)
   });
 
 };
@@ -34,7 +36,7 @@ exports.read_a_incidente = function(req, res) {
   incidente.getIncidentById(req.params.incidenteId, function(err, incidente) {
     if (err)
       res.send(err);
-    res.json(incidente);
+    res.json(incidente.rows);
   });
 };
 
@@ -90,5 +92,27 @@ exports.list_all_users = function(req, res) {
   });
 };
 
+exports.iniciar_sesion = function(req, res) {
+  Usuario.iniciarSesion(req.body,function(err, usuario) {
+    if (err)
+      res.send(err);
+      console.log('res', usuario);
+    res.send(usuario);
+  });
+};
 
+var Voto_usuario = require('../model/votoUsuarioModel.js');
 
+exports.create_a_voto = function(req, res) {
+  var new_voto = new Voto_usuario(req.body);
+
+  //handles null error 
+  
+  Voto_usuario.createVoto(new_voto, function(err, usuario) {
+    
+    if (err)
+      res.send(err);
+    res.json(usuario);
+  });
+
+};

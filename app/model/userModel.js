@@ -1,25 +1,4 @@
 'user strict';
-// Nodejs encryption with CTR
-const crypto = require('crypto');
-const algorithm = 'aes-256-cbc';
-const key = crypto.randomBytes(32);
-const iv = crypto.randomBytes(16);
-
-function encrypt(text) {
- let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(key), iv);
- let encrypted = cipher.update(text);
- encrypted = Buffer.concat([encrypted, cipher.final()]);
- return { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
-}
-
-function decrypt(text) {
- let iv = Buffer.from(text.iv, 'hex');
- let encryptedText = Buffer.from(text.encryptedData, 'hex');
- let decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(key), iv);
- let decrypted = decipher.update(encryptedText);
- decrypted = Buffer.concat([decrypted, decipher.final()]);
- return decrypted.toString();
-}
 var sql = require('./db.js');
 
 var Usuario = function(usuarios){
@@ -30,7 +9,7 @@ var Usuario = function(usuarios){
 };
 
 Usuario.createUsuario =  function createUser(newUser, result) {    
-    sql.query("INSERT INTO usuarios set ?", newUser, function (err, res) {       
+    sql.query("INSERT INTO usuarios (usuario,correo,contrasena,token) VALUES ($1, $2, $3, $4)", [newUser.usuario,newUser.correo,newUser.contrasena,newUser.token], function (err, res) {       
             if(err) {
                 console.log("error: ", err);
                 result(err, null);
@@ -50,35 +29,47 @@ Usuario.getAllUsers = function getAllUsers(result) {
                 result(null, err);
             }
             else{
-              console.log('users : ', res);  
+              console.log('users : ', res.rows);  
 
-             result(null, res);
+             result(null, res.rows);
             }
         });   
 };
 
 Usuario.updateById = function(id, usuario, result){
-    sql.query("UPDATE usuarios SET contrasena = ? WHERE id = ?", [usuario.contrasena, id], function (err, res) {
+    sql.query("UPDATE usuarios SET contrasena = $1 WHERE id = $2", [usuario.contrasena, id], function (err, res) {
             if(err) {
                 console.log("error: ", err);
                   result(null, err);
                }
              else{   
-               result(null, res);
+               result(null, res.rows);
                   }
               }); 
   };
 
 Usuario.getUserById = function createUser(userId, result) {
-    sql.query("Select * from usuarios where id = ? ", userId, function (err, res) {             
+    sql.query("Select * from usuarios where id = $1 ", [userId], function (err, res) {             
             if(err) {
                 console.log("error: ", err);
                 result(err, null);
             }
             else{
-                result(null, res);
+                result(null, res.rows);
           
             }
         });   
 };
+Usuario.iniciarSesion = function iniciarSesion(usuario, result){
+    sql.query("Select * from usuarios where correo = $1 and  contrasena = $2", [usuario.correo,usuario.contrasena], function (err, res) {             
+        if(err) {
+            console.log("error: ", err);
+            result(err, null);
+        }
+        else{
+            result(null, res.rows);
+      
+        }
+    });   
+}
 module.exports= Usuario;
