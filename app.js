@@ -40,8 +40,7 @@ sql.query("select * from incidentes", function (err, res) {
 });
 io.on('connection', function(socket) {
   socket.emit("new-message", incidentes)
-  console.log('Un cliente se ha conectado en '+ socket );
-  console.log(socket.request.connection.remoteAddress," Connected")
+  console.log('Un cliente se ha conectado en '+ socket);
   socket.on('new-message', function(data) {
     incidentes.push(data);
     socket.broadcast.emit('posiciones', incidentes)
