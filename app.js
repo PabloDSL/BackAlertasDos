@@ -2,11 +2,13 @@ const express = require('express');
 var app = express();
 var sql = require('./app/model/db.js')
 var bodyParser = require('body-parser');
-var port = process.env.PORT || 5000;
+var port = process.env.PORT || 3000;
+
+
 
 //websocket
-var server = app.listen(port);
-var io = require('socket.io').listen(server);
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 
 var posiciones;
 
