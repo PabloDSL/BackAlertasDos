@@ -41,8 +41,8 @@ sql.query("select * from incidentes", function (err, res) {
 io.on('connection', function(socket) {
   socket.emit("new-message", incidentes)
   console.log('Un cliente se ha conectado en '+ socket);
-  socket.on('new-message', function(data) {
+  socket.on('new-incidente', function(data) {
     incidentes.push(data);
-    socket.broadcast.emit('posiciones', incidentes)
+    socket.broadcast.emit('new-message', incidentes)
   });
 });
