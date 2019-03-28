@@ -15,7 +15,7 @@ Valoracion.createValoracion =  function createValoracion(newValoracion, result) 
             }
             else{
                 console.log(res.insertId);
-                result(null, res.insertId);
+                result(null, "Registro exitoso");
             }
         });           
 };
