@@ -31,7 +31,7 @@ exports.create_a_incident = function(req, res) {
 
 
 exports.read_a_incidente = function(req, res) {
-  incidente.getIncidentById(req.params.id, function(err, incidente) {
+  incidente.getIncidentById(req.params.incidenteId, function(err, incidente) {
     if (err)
       res.send(err);
     res.json(incidente);
