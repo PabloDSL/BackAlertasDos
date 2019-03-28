@@ -18,6 +18,8 @@ module.exports = function(app) {
     .put(controlador.update_a_user);
 
   app.route('/voto').post(controlador.create_a_voto);
+
+  app.route('/login').post(controlador.iniciar_sesion);
     
 
 };
