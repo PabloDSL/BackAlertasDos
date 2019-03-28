@@ -63,11 +63,16 @@ Usuario.getUserById = function createUser(userId, result) {
 Usuario.iniciarSesion = function iniciarSesion(usuario, result){
     sql.query("Select * from usuarios where correo = $1 and  contrasena = $2", [usuario.correo,usuario.contrasena], function (err, res) {             
         if(err) {
-            console.log("error: ", err);
-            result("exito", "0");
+            console.log("errrrrr ",err);
+            result(err, null);
         }
         else{
-            result("exito", "1");
+            if(res.rows.length==0){
+                result(null,"fracaso");
+            }else{
+                result(null, "exitoso");
+            }
+            
       
         }
     });   

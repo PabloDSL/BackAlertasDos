@@ -86,18 +86,17 @@ exports.update_a_user = function(req, res) {
 exports.list_all_users = function(req, res) {
   Usuario.getAllUsers(function(err, usuario) {
     if (err)
-      res.send(err);
+      //res.send(err);
       console.log('res', usuario);
-    res.send(usuario);
+    res.json(usuario);
   });
 };
 
 exports.iniciar_sesion = function(req, res) {
-  Usuario.iniciarSesion(req.body,function(err, usuario) {
+  Usuario.iniciarSesion(new Usuario(req.body),function(err, usuario) {
     if (err)
       res.send(err);
-      console.log('res', usuario);
-    res.send(usuario);
+    res.json(usuario);
   });
 };
 
