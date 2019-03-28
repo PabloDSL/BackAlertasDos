@@ -16,6 +16,10 @@ module.exports = function(app) {
   app.route('/usuarios/:id')
     .get(controlador.read_a_user)
     .put(controlador.update_a_user);
+
+  app.route('/voto').post(controlador.create_a_voto);
+
+  app.route('/login').post(controlador.iniciar_sesion);
     
 
 };
