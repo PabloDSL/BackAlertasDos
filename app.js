@@ -49,7 +49,6 @@ io.on('connection', function(socket) {
   
   socket.on('new-message', function(data) {
     incidentes.push(data);
-
     socket.broadcast.emit('posiciones', incidentes)
   });
   
