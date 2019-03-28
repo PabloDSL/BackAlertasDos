@@ -9,7 +9,7 @@ var Usuario = function(usuarios){
 };
 
 Usuario.createUsuario =  function createUser(newUser, result) {    
-    sql.query("INSERT INTO usuarios set ?", newUser, function (err, res) {       
+    sql.query("INSERT INTO usuarios (usuario,correo,contrasena,token) VALUES ($1, $2, $3, $4)", [newUser.usuario,newUser.correo,newUser.contrasena,newUser.token], function (err, res) {       
             if(err) {
                 console.log("error: ", err);
                 result(err, null);
@@ -29,33 +29,33 @@ Usuario.getAllUsers = function getAllUsers(result) {
                 result(null, err);
             }
             else{
-              console.log('users : ', res);  
+              console.log('users : ', res.rows);  
 
-             result(null, res);
+             result(null, res.rows);
             }
         });   
 };
 
 Usuario.updateById = function(id, usuario, result){
-    sql.query("UPDATE usuarios SET contrasena = ? WHERE id = ?", [usuario.contrasena, id], function (err, res) {
+    sql.query("UPDATE usuarios SET contrasena = $1 WHERE id = $2", [usuario.contrasena, id], function (err, res) {
             if(err) {
                 console.log("error: ", err);
                   result(null, err);
                }
              else{   
-               result(null, res);
+               result(null, res.rows);
                   }
               }); 
   };
 
 Usuario.getUserById = function createUser(userId, result) {
-    sql.query("Select * from usuarios where id = ? ", userId, function (err, res) {             
+    sql.query("Select * from usuarios where id = $1 ", [userId], function (err, res) {             
             if(err) {
                 console.log("error: ", err);
                 result(err, null);
             }
             else{
-                result(null, res);
+                result(null, res.rows);
           
             }
         });   

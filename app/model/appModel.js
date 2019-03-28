@@ -12,25 +12,16 @@ var Incidente = function(incidentes){
     this.hora = incidentes.hora;
 };
 
-var Valoracion = function(valoraciones){
-    this.idIncidente = valoraciones.idIncidente;
-    this.votos_positivo = valoraciones.votos_positivo;
-    this.votos_negativo = valoraciones.votos_negativo;
-};
+
 Incidente.createIncidente = function createUser(newIncident, result) {
-        let jsonValoracion = null;    
-        sql.query("INSERT INTO incidentes set ?", newIncident, function (err, res) {
-                console.log("impresion: ",newIncident)
-                if(err) {
-                    console.log("error: ", err);
-                    result(err, null);
-                }
-                else{
-                    jsonValoracion=res.insertId
-                    console.log(res.insertId);
-                    result(null, res.insertId);
-                }
-            });
+    let jsonValoracion = null;    
+    sql.query('INSERT INTO incidentes (titulo, descripcion, tipoCorteCirculacion, latitud, longitud, fecha, hora) VALUES ($1, $2, $3, $4, $5, $6, $7)', [newIncident.titulo, newIncident.descripcion, newIncident.tipoCorteCirculacion, newIncident.latitud, newIncident.longitud, newIncident.fecha, newIncident.hora], (error, results) => {
+      if (error) {
+        throw error
+      }
+      //result.send( 'Saludos desde express' );
+      console.log("Hecho");
+    })
         /*sql.query("INSERT INTO valoraciones (idIncidente) set ?",jsonValoracion, function (err, res) {
                 
                 if(err) {
@@ -41,10 +32,12 @@ Incidente.createIncidente = function createUser(newIncident, result) {
                     console.log(res.insertId);
                     result(null, res.insertId);
                 }
-            });   */         
+            });  */        
 };
 Incidente.getIncidentById = function createUser(incidentId, result) {
-        sql.query("Select * from incidentes where id = ? ", incidentId, function (err, res) {             
+    console.log(incidentId)
+
+        sql.query("Select * from incidentes where id = $1 ", [incidentId], function (err, res) {             
                 if(err) {
                     console.log("error: ", err);
                     result(err, null);
@@ -73,7 +66,7 @@ Incidente.getAllIncidents = function getAllIncidents(result) {
 
 
 Incidente.remove = function(id, result){
-     sql.query("DELETE FROM incidentes WHERE id = ?", [id], function (err, res) {
+     sql.query("DELETE FROM incidentes WHERE id = $1", [id], function (err, res) {
 
                 if(err) {
                     console.log("error: ", err);

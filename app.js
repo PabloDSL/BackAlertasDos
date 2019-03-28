@@ -32,9 +32,9 @@ app.use(bodyParser.json());
 var routes = require('./app/routes/appRoutes'); //importing route
 routes(app); //register the route
 
-io.on('connection', function(socket) {
+/*io.on('connection', function(socket) {
 	console.log('Un cliente se ha conectado en '+ socket );
-  /* socket.emit('posiciones', function (result){
+  socket.emit('posiciones', function (result){
     sql.query("SELECT * FROM incidentes",function(err,res){
       if(err) {
         console.log("error: ", err);
@@ -45,7 +45,7 @@ io.on('connection', function(socket) {
       }
     
     });
-  }); */
+  }); 
   io.sockets.emit('posiciones', function (result){
     sql.query("SELECT * FROM incidentes",function(err,res){
       if(err) {
@@ -57,4 +57,4 @@ io.on('connection', function(socket) {
       }
     });
   });
-});
+});*/
