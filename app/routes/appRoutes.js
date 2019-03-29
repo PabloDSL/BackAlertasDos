@@ -17,9 +17,13 @@ module.exports = function(app) {
     .get(controlador.read_a_user)
     .put(controlador.update_a_user);
 
-  app.route('/voto').post(controlador.create_a_voto);
+  app.route('/voto').post(controlador.create_a_voto)
+  .get(controlador.get_all_votos);
 
   app.route('/login').post(controlador.iniciar_sesion);
+
+  app.route('/totalikes/:id').post(controlador.total_megusta);
+  app.route('/totaldislikes/:id').post(controlador.total_nomegusta);
     
 
 };

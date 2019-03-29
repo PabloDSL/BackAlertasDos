@@ -115,3 +115,38 @@ exports.create_a_voto = function(req, res) {
   });
 
 };
+
+exports.total_megusta = function(req, res) {
+  
+  Voto_usuario.totalMegusta(req.params.id, function(err, voto) {
+    
+    if (err)
+      res.send(err);
+    res.json(voto);
+  });
+
+};
+
+exports.total_nomegusta = function(req, res) {
+  
+  Voto_usuario.totalNoMegusta(req.params.id, function(err, voto) {
+    
+    if (err)
+      res.send(err);
+    res.json(voto);
+  });
+
+};
+
+exports.get_all_votos = function(req, res) {
+  
+  Voto_usuario.getAllVotos(function(err, voto) {
+    
+    if (err)
+      res.send(err);
+    res.json(voto);
+  });
+
+};
+
+
