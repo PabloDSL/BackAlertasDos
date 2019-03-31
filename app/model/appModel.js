@@ -21,6 +21,7 @@ Incidente.createIncidente = function createUser(newIncident, result) {
       }
       //result.send( 'Saludos desde express' );
       console.log("Hecho");
+      result(null,"Simon")
     })
         /*sql.query("INSERT INTO valoraciones (idIncidente) set ?",jsonValoracion, function (err, res) {
                 
