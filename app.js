@@ -50,7 +50,7 @@ io.on('connection', function(socket) {
 
   socket.on('send-valoration', function(data){
     console.log(data);
-    socket.broadcast.emit('new-valoration');
+    io.sockets.emit('new-valoration');
   });
 
 });
