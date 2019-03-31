@@ -17,23 +17,18 @@ exports.list_all_incidents = function(req, res) {
 
 exports.create_a_incident = function(req, res) {
   var new_incident = new Incidente(req.body);
-
-  //handles null error 
-  console.log(new_incident)
   
   Incidente.createIncidente(new_incident, function(err, incidente) {
-    
     if (err)
       res.send(err);
-    res.json(incidente);
-    res.send(`User added with ID:`)
+    res.json({message: "exito"});
   });
 
 };
 
 
 exports.read_a_incidente = function(req, res) {
-  incidente.getIncidentById(req.params.incidenteId, function(err, incidente) {
+  Incidente.getIncidentById(req.params.incidenteId, function(err, incidente) {
     if (err)
       res.send(err);
     res.json(incidente.rows);
@@ -62,7 +57,7 @@ exports.create_a_user = function(req, res) {
     
     if (err)
       res.send(err);
-    res.json(usuario);
+    res.json({message: "exito"});
   });
 
 };
@@ -111,7 +106,7 @@ exports.create_a_voto = function(req, res) {
     
     if (err)
       res.send(err);
-    res.json(usuario);
+    res.json({message:"exito"});
   });
 
 };

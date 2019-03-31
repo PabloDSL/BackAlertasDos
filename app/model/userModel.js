@@ -11,11 +11,9 @@ var Usuario = function(usuarios){
 Usuario.createUsuario =  function createUser(newUser, result) {    
     sql.query("INSERT INTO usuarios (usuario,correo,contrasena,token) VALUES ($1, $2, $3, $4)", [newUser.usuario,newUser.correo,newUser.contrasena,newUser.token], function (err, res) {       
             if(err) {
-                console.log("error: ", err);
                 result(err, null);
             }
             else{
-                console.log(res.insertId);
                 result(null, res.insertId);
             }
         });           
