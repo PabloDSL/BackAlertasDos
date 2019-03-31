@@ -40,11 +40,17 @@ sql.query("select * from incidentes", function (err, res) {
   }
 });
 io.on('connection', function(socket) {
-  socket.emit("new-incidente", incidentes);  
+  //socket.emit("new-incidente", incidentes);  
   console.log('Un cliente se ha conectado en '+ socket);
   socket.on('new-message', function(data) {
     console.log(data);
     incidentes.rows.push(data);
     socket.broadcast.emit('new-incidente', incidentes)
   });
+
+  socket.on('send-valoration', function(data){
+    console.log(data);
+    socket.broadcast.emit('new-valoration');
+  });
+
 });
