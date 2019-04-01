@@ -3,6 +3,9 @@ var app = express();
 var sql = require('./app/model/db.js')
 var bodyParser = require('body-parser');
 var port = process.env.PORT || 5000;
+var InfiniteLoop = require('infinite-loop');
+
+
 
 //websocket
 var server = app.listen(3000);
@@ -36,14 +39,24 @@ sql.query("select * from incidentes", function (err, res) {
   else{
     incidentes = res;
     //console.log('users : ', incidentes);
+    //console.log("Prueba ignore");
   }
 });
 io.on('connection', function(socket) {
-  socket.emit("new-incidente", incidentes);  
+  //socket.emit("new-incidente", incidentes);  
   console.log('Un cliente se ha conectado en '+ socket);
   socket.on('new-message', function(data) {
     console.log(data);
     incidentes.rows.push(data);
     socket.broadcast.emit('new-incidente', incidentes)
   });
+
+  socket.on('send-valoration', function(data){
+    console.log(data);
+    io.sockets.emit('new-valoration');
+  });
+
 });
+
+
+
