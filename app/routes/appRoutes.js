@@ -22,8 +22,8 @@ module.exports = function(app) {
 
   app.route('/login').post(controlador.iniciar_sesion);
 
-  app.route('/totalikes/:id').post(controlador.total_megusta);
-  app.route('/totaldislikes/:id').post(controlador.total_nomegusta);
+  app.route('/totalikes/:id').get(controlador.total_megusta);
+  app.route('/totaldislikes/:id').get(controlador.total_nomegusta);
     
 
 };

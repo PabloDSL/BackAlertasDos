@@ -17,6 +17,7 @@ Voto_usuario.createVoto =  function createVoto(newVoto, result) {
             }
             else{
                 console.log("echo")
+                result(null,"exito")
             }
         });           
 };

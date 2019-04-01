@@ -8,7 +8,7 @@ exports.list_all_incidents = function(req, res) {
     console.log('controller')
     if (err)
       res.send(err);
-      console.log('res', incidente);
+      //console.log('res', incidente);
     res.send(incidente.rows);
   });
 };
@@ -21,7 +21,7 @@ exports.create_a_incident = function(req, res) {
   Incidente.createIncidente(new_incident, function(err, incidente) {
     if (err)
       res.send(err);
-    res.json({message: "exito"});
+    res.send(incidente.rows)
   });
 
 };
@@ -82,7 +82,7 @@ exports.list_all_users = function(req, res) {
   Usuario.getAllUsers(function(err, usuario) {
     if (err)
       //res.send(err);
-      console.log('res', usuario);
+      //console.log('res', usuario);
     res.json(usuario);
   });
 };

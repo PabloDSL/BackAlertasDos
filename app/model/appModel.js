@@ -20,11 +20,14 @@ Incidente.createIncidente = function createUser(newIncident, result) {
             console.log("error: ", err);
             result(err, null);
         }
-        else{
-            console.log(res.insertId);
-            result(null, res.insertId);
-        }
     })  
+    sql.query("SELECT MAX(id) FROM incidentes;",function(err,res){
+        if(err){
+            console.log("erro: ",err)
+        }else{
+            result(null,res)
+        }
+    }) 
 };
 Incidente.getIncidentById = function createUser(incidentId, result) {
     console.log(incidentId)
