@@ -10,12 +10,14 @@ var Incidente = function(incidentes){
     this.longitud = incidentes.longitud;
     this.fecha = incidentes.fecha;
     this.hora = incidentes.hora;
+    this.megusta = incidentes.megusta;
+    this.nomegusta = incidentes.nomegusta
 };
 
 
 Incidente.createIncidente = function createUser(newIncident, result) {
     let jsonValoracion = null;    
-    sql.query('INSERT INTO incidentes (titulo, descripcion, tipoCorteCirculacion, latitud, longitud, fecha, hora) VALUES ($1, $2, $3, $4, $5, $6, $7)', [newIncident.titulo, newIncident.descripcion, newIncident.tipoCorteCirculacion, newIncident.latitud, newIncident.longitud, newIncident.fecha, newIncident.hora], (err, res) => {
+    sql.query('INSERT INTO incidentes (titulo, descripcion, tipoCorteCirculacion, latitud, longitud, fecha, hora,megusta, nomegusta) VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9)', [newIncident.titulo, newIncident.descripcion, newIncident.tipoCorteCirculacion, newIncident.latitud, newIncident.longitud, newIncident.fecha, newIncident.hora,newIncident.megusta,newIncident.nomegusta], (err, res) => {
         if(err) {
             console.log("error: ", err);
             result(err, null);
@@ -28,6 +30,18 @@ Incidente.createIncidente = function createUser(newIncident, result) {
             result(null,res)
         }
     }) 
+};
+
+Incidente.updateLikes = function (id,incidente,result){
+    sql.query("UPDATE incidentes SET megusta = $1,nomegusta = $2  WHERE id = $3", [incidente.megusta,incidente.nomegusta, id], function (err, res) {
+        if(err) {
+            console.log("error: ", err);
+              result(null, err);
+           }
+         else{   
+           result(null, res.rows);
+              }
+          }); 
 };
 Incidente.getIncidentById = function createUser(incidentId, result) {
     console.log(incidentId)

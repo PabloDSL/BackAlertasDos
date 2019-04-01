@@ -39,12 +39,20 @@ exports.read_a_incidente = function(req, res) {
 
 exports.delete_a_incidente = function(req, res) {
 
-  incidente.remove( req.params.incidenteId, function(err, incidente) {
+  Incidente.remove( req.params.incidenteId, function(err, incidente) {
     if (err)
       res.send(err);
     res.json({ message: 'incidente successfully deleted' });
   });
 };
+
+exports.update_likes_incidente = function(req,res){
+  Incidente.updateLikes(req.params.id, new Incidente(req.body), function(err, incidente) {
+    if (err)
+      res.send(err);
+    res.json(incidente);
+  });
+}
 
 var Usuario = require('../model/userModel.js');
 
