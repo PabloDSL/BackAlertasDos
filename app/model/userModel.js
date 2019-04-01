@@ -68,6 +68,7 @@ Usuario.iniciarSesion = function iniciarSesion(usuario, result){
             if(res.rows.length==0){
                 result(null,"fracaso");
             }else{
+                
                 result(null, res.rows);
             }
             
