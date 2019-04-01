@@ -44,7 +44,7 @@ Incidente.getIncidentById = function createUser(incidentId, result) {
             });   
 };
 Incidente.getAllIncidents = function getAllIncidents(result) {
-        sql.query("Select * from incidentes", function (err, res) {
+        sql.query("Select * from incidentes order by id desc", function (err, res) {
 
                 if(err) {
                     console.log("error: ", err);
