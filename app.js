@@ -2,15 +2,15 @@ const express = require('express');
 var app = express();
 var sql = require('./app/model/db.js')
 var bodyParser = require('body-parser');
-var port = process.env.PORT || 5000;
+var port = process.env.PORT || 3000;
 var moment = require('moment');
 //websocket
-var server = app.listen(3000);
+var server = app.listen(port);
 var io = require('socket.io').listen(server);
 
 // Configurar cabeceras y cors
 app.use((req, res, next) => {
-	res.header('Access-Control-Allow-Origin', 'http://localhost:8100');
+	res.header('Access-Control-Allow-Origin', 'http://localhost');
 	res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
 	res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
   res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
@@ -18,7 +18,7 @@ app.use((req, res, next) => {
 	next();
 });
 
-app.listen(port);
+//app.listen(port);
 
 
 console.log('API server started on: ' + port);
