@@ -3,7 +3,7 @@ var app = express();
 var sql = require('./app/model/db.js')
 var bodyParser = require('body-parser');
 var port = process.env.PORT || 5000;
-
+var moment = require('moment');
 //websocket
 var server = app.listen(3000);
 var io = require('socket.io').listen(server);
@@ -20,8 +20,9 @@ app.use((req, res, next) => {
 
 app.listen(port);
 
-console.log('API server started on: ' + port);
 
+console.log('API server started on: ' + port);
+console.log(moment().format('YYYY/MM/DD'))
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -54,3 +55,19 @@ io.on('connection', function(socket) {
   });
 
 });
+
+
+function dateChange (){
+  while (true){
+    if(moment().format('LT')=="11:59 PM"){
+      sql.query("DELETE * FROM incidentes", function (err, res) {
+        if(err) {
+            console.log("error: ", err);
+        }
+        else{
+         console.log("Se han borrado los registros");
+        }
+    }); 
+    }
+  }
+}

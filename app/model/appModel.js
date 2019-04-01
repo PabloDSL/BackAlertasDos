@@ -1,5 +1,6 @@
 'user strict';
 var sql = require('./db.js');
+var moment = require('moment');
 
 //Task object constructor
 var Incidente = function(incidentes){
@@ -26,6 +27,8 @@ Incidente.createIncidente = function createUser(newIncident, result) {
         }
     })  
 };
+
+
 Incidente.getIncidentById = function createUser(incidentId, result) {
     console.log(incidentId)
 
@@ -41,18 +44,17 @@ Incidente.getIncidentById = function createUser(incidentId, result) {
             });   
 };
 Incidente.getAllIncidents = function getAllIncidents(result) {
-        sql.query("Select * from incidentes", function (err, res) {
-
-                if(err) {
-                    console.log("error: ", err);
-                    result(null, err);
-                }
-                else{
-                  console.log('tasks : ', res);  
-
-                 result(null, res);
-                }
-            });   
+    let time = moment().format('YYYY-MM-DD')
+    sql.query("Select * from incidentes where fecha = $1",[time], function (err, res) {
+        if(err) {
+            console.log("error: ", err);
+            result(null, err);
+        }
+        else{
+            console.log('tasks : ', res);  
+            result(null, res);  
+        }
+    });   
 };
 
 
