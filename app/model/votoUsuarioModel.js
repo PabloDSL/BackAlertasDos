@@ -32,6 +32,20 @@ Voto_usuario.getAllVotos =  function votos( result) {
             }
         });           
 };
+
+Voto_usuario.getVotoByIdIncidente = function voto(id,result){
+    sql.query("select * from voto_usuario where idincidente=$1",[id] ,function (err, res) {       
+        if(err) {
+            console.log("error: ", err);
+            result(err, null);
+        }
+        else{
+            result(null, res.rows);
+        }
+    });   
+
+};
+
 Voto_usuario.totalMegusta = function (id,result){
     sql.query("select count(megusta) as likes from voto_usuario WHERE megusta = 1 and idincidente = $1", [id], function (err, res) {
         if(err) {

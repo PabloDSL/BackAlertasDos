@@ -152,4 +152,13 @@ exports.get_all_votos = function(req, res) {
 
 };
 
+exports.get_voto_by_idIncidente = function(req, res) {
+  Voto_usuario.getVotoByIdIncidente(req.params.id,function(err, voto) {
+    if (err)
+      res.send(err);
+    res.json(voto);
+  });
+
+};
+
 
