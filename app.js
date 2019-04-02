@@ -57,17 +57,4 @@ io.on('connection', function(socket) {
 });
 
 
-function dateChange (){
-  while (true){
-    if(moment().format('LT')=="11:59 PM"){
-      sql.query("DELETE * FROM incidentes", function (err, res) {
-        if(err) {
-            console.log("error: ", err);
-        }
-        else{
-         console.log("Se han borrado los registros");
-        }
-    }); 
-    }
-  }
-}
+
